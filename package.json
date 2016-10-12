@@ -1,0 +1,15 @@
+{
+  "name": "wheresmypi",
+  "version": "1.0.0",
+  "description": "Locate your Rasperry Pi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bakerface/wheresmypi.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "redis": "^2.6.2"
+  }
+}
