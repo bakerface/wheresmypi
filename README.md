@@ -27,3 +27,5 @@ $ crontab -e
 
 0 * * * * /opt/update-ip.sh
 ```
+
+Then go to https://wheresmypi.herokuapp.com/mike

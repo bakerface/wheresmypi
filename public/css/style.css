@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #eee;
+  padding-top: 10px;
+}
+
+@font-face {
+  font-family: "Roboto Slab", serif;
+}
+
+#app {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+}

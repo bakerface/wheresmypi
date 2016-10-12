@@ -21,15 +21,17 @@
  *
  */
 
-var express = require('express');
-var bodyParser = require('body-parser');
+var path = require('path');
 var redis = require('redis');
+var express = require('express');
 
 var client = redis.createClient(process.env.REDIS_URL);
 var app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/', function (req, res) {
   client.hmset('locations', req.query, function (err) {
@@ -52,6 +54,14 @@ app.get('/:id', function (req, res) {
     }
 
     return res.status(404).end();
+  });
+});
+
+app.get('/', function (req, res) {
+  client.hgetall('locations', function (error, locations) {
+    res.render('dashboard', {
+      locations: locations
+    });
   });
 });
 
