@@ -22,7 +22,7 @@
  */
 
 var path = require("path");
-var redis = require("fakeredis");
+var redis = require("redis");
 var express = require("express");
 
 var client = redis.createClient(process.env.REDIS_URL);
