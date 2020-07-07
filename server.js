@@ -28,6 +28,7 @@ var express = require("express");
 var client = redis.createClient(process.env.REDIS_URL);
 var app = express();
 
+app.enable("trust proxy");
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
