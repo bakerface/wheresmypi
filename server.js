@@ -21,20 +21,20 @@
  *
  */
 
-var path = require('path');
-var redis = require('redis');
-var express = require('express');
+var path = require("path");
+var redis = require("fakeredis");
+var express = require("express");
 
 var client = redis.createClient(process.env.REDIS_URL);
 var app = express();
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.post('/', function (req, res) {
-  client.hmset('locations', req.query, function (err) {
+app.post("/", function (req, res) {
+  client.hmset("locations." + req.ip, req.query, function (err) {
     if (err) {
       return res.status(500).json(err);
     }
@@ -43,8 +43,8 @@ app.post('/', function (req, res) {
   });
 });
 
-app.get('/:id', function (req, res) {
-  client.hget('locations', req.params.id, function (err, location) {
+app.get("/:id", function (req, res) {
+  client.hget("locations." + req.ip, req.params.id, function (err, location) {
     if (err) {
       return res.status(500).json(err);
     }
@@ -57,10 +57,11 @@ app.get('/:id', function (req, res) {
   });
 });
 
-app.get('/', function (req, res) {
-  client.hgetall('locations', function (error, locations) {
-    res.render('dashboard', {
-      locations: locations
+app.get("/", function (req, res) {
+  client.hgetall("locations." + req.ip, function (error, locations) {
+    res.render("dashboard", {
+      ip: req.ip,
+      locations: locations,
     });
   });
 });

@@ -1,18 +1,17 @@
 extends layout
 
-block app
-  .container
-    .row
-      .col-sm-offset-1.col-sm-10
-        h3 Where's My Pi?
-        table.table
-          thead.thead-inverse
-            tr
-              th Name
-              th Location
-          tbody
-            each location, name in locations
-              tr
-                td(width='20%') #{name}
-                td(width='80%')
-                  a(href=location) #{location}
+block main
+  header
+    h1 Where's My Pi?
+    .ip Showing devices with public IP address #{ip}
+  table
+    thead.thead-inverse
+      tr
+        th Name
+        th Location
+    tbody
+      each location, name in locations
+        tr
+          td(width='30%') #{name}
+          td(width='70%')
+            a(href=location) #{location}
