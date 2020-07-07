@@ -59,9 +59,13 @@ app.get("/:id", function (req, res) {
 
 app.get("/", function (req, res) {
   client.hgetall("locations." + req.ip, function (error, locations) {
+    if (error) {
+      return res.render("error", { error });
+    }
+
     res.render("dashboard", {
       ip: req.ip,
-      locations: locations,
+      locations: locations || [],
     });
   });
 });
